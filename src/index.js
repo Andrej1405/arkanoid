@@ -79,8 +79,21 @@ const ball = {
 
 	window.addEventListener('keydown', e => {
 		if (!KEYBORD_KEYS.flat(1).includes(e.code)) return
-		if (KEYBORD_KEYS[0].includes(e.code)) platform.cx -= 6
-		if (KEYBORD_KEYS[1].includes(e.code)) platform.cx += 6
+
+		if (KEYBORD_KEYS[0].includes(e.code)) {
+			if (platform.cx <= 0) return
+
+			platform.cx -= 6
+			return
+		}
+
+		if (KEYBORD_KEYS[1].includes(e.code)) {
+			if (platform.cx >= frontCanvas.width - platform.x) return
+
+			platform.cx += 6
+			return
+		}
+
 		if (KEYBORD_KEYS[2].includes(e.code)) ball.isMovement = !ball.isMovement
 	})
 
