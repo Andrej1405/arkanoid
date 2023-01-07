@@ -5,7 +5,7 @@ const PLATFORM_WIDTH = 200
 const PLATFORM_HEIGHT = 30
 const BALL_WIDTH = 25
 const BALL_HEIGHT = 25
-const KEYBORD_KEYS = [['ArrowLeft', 'a'], ['ArrowRight', 'd']]
+const KEYBORD_KEYS = [['ArrowLeft', 'a'], ['ArrowRight', 'd'], ['Space']]
 
 const platform = {
 	x: PLATFORM_WIDTH,
@@ -15,6 +15,7 @@ const platform = {
 }
 
 const ball = {
+	isMovement: false,
 	x: BALL_WIDTH,
 	y: BALL_HEIGHT,
 	cx: platform.cx + platform.x / 2 - BALL_WIDTH / 2,
@@ -52,6 +53,10 @@ const ball = {
 
 		frontCanvasCtx.fillRect(platform.cx, platform.cy, platform.x, platform.y)
 		frontCanvasCtx.fillRect(ball.cx, ball.cy, ball.x, ball.y)
+
+		if (ball.isMovement) {
+			ball.cy -= 2;
+		}
 	}
 	
 	window.addEventListener('resize', () => {
@@ -65,15 +70,10 @@ const ball = {
 	})
 
 	window.addEventListener('keydown', e => {
-		if (!KEYBORD_KEYS.flat(1).includes(e.key)) return
-
-		if (KEYBORD_KEYS[0].includes(e.key)) {
-			platform.cx -= 6
-		}
-
-		if (KEYBORD_KEYS[1].includes(e.key)) {
-			platform.cx += 6
-		}
+		if (!KEYBORD_KEYS.flat(1).includes(e.key) && !KEYBORD_KEYS.flat(1).includes(e.code)) return
+		if (KEYBORD_KEYS[0].includes(e.key)) platform.cx -= 6
+		if (KEYBORD_KEYS[1].includes(e.key)) platform.cx += 6
+		if (KEYBORD_KEYS[2].includes(e.code)) ball.isMovement = !ball.isMovement
 	})
 
 	requestAnimationFrame(render)
