@@ -4,6 +4,8 @@ const NUMBER_STARS_CANVAS = 100
 const PLATFORM_WIDTH = 200
 const PLATFORM_HEIGHT = 24
 const BALL_RADIUS = 18
+const BLOCK_WIDTH = innerWidth / 8
+const BLOCK_HEIGHT = 48
 const KEYBORD_KEYS = [['ArrowLeft', 'KeyA'], ['ArrowRight', 'KeyD'], ['Space']]
 
 const platform = {
@@ -21,6 +23,30 @@ const ball = {
 	cy: platform.cy - BALL_RADIUS - 3,
 	color: '#A65800',
 }
+
+const rows = {
+	0: 1,
+	1: 1,
+	2: 1,
+	3: 1,
+	4: 2,
+	5: 2,
+	6: 2,
+	7: 3,
+	8: 3,
+	9: 4,
+}
+const blocks = new Array(10).fill({}).map((_, i) => {
+	const row = rows[i]
+
+	return {
+		x: BLOCK_WIDTH - 2,
+		y: BLOCK_HEIGHT - 2,
+		cx: BLOCK_WIDTH * (i + 2),
+		cy: BLOCK_HEIGHT * row,
+		color: '#6B4CA4',
+	}
+})
 
 ;(function main() {
 	const backCanvas = createCanvas('backCanvas', 'position: absolute; top: 0; left: 0')
@@ -55,6 +81,12 @@ const ball = {
 		frontCanvasCtx.fillStyle = platform.color
 		frontCanvasCtx.fillRect(platform.cx, platform.cy, platform.x, platform.y)
 		
+		// Draw blocks
+		blocks.forEach(block => {
+			frontCanvasCtx.fillStyle = block.color
+			frontCanvasCtx.fillRect(block.cx, block.cy, block.x, block.y)
+		})
+
 		// Draw ball
 		frontCanvasCtx.fillStyle = ball.color
 		frontCanvasCtx.beginPath()
@@ -78,6 +110,7 @@ const ball = {
 	})
 
 	window.addEventListener('keydown', e => {
+		console.log(blocks)
 		if (!KEYBORD_KEYS.flat(1).includes(e.code)) return
 
 		if (KEYBORD_KEYS[0].includes(e.code)) {
