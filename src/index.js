@@ -51,9 +51,11 @@ const ball = {
 
 		frontCanvasCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height)
 
+		// Draw platform
 		frontCanvasCtx.fillStyle = platform.color
 		frontCanvasCtx.fillRect(platform.cx, platform.cy, platform.x, platform.y)
 		
+		// Draw ball
 		frontCanvasCtx.fillStyle = ball.color
 		frontCanvasCtx.beginPath()
 		frontCanvasCtx.arc(ball.cx, ball.cy, ball.radius, 0, 2 * Math.PI)
