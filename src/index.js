@@ -74,7 +74,7 @@ const arkanoid = {
 	const frontCanvas = createCanvas('frontCanvas', 'position: relative')
 	const frontCanvasCtx = frontCanvas.getContext('2d')
 
-	// Render backCanvas with background and stars
+	// Render 'backCanvas' with background and stars
 	const render = () => {
 		backCanvasCtx.fillStyle = colors.backCanvas
     backCanvasCtx.fillRect(0, 0, backCanvas.width, backCanvas.height)
@@ -113,10 +113,12 @@ const arkanoid = {
 		frontCanvasCtx.closePath()
 		frontCanvasCtx.fill()
 		
-		if (arkanoid.isStart) {
-			ball.cy -= 2;
-			ball.cx -= 1;
-		}
+		if (arkanoid.isStart) ballMove
+	}
+
+	const ballMove = () => {
+		ball.cy -= 2
+		ball.cx -= 1
 	}
 	
 	window.addEventListener('resize', () => {
