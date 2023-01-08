@@ -18,6 +18,7 @@ const platform = {
 	y: PLATFORM_HEIGHT,
 	cx: innerWidth / 2 - PLATFORM_WIDTH / 2,
 	cy: innerHeight - PLATFORM_HEIGHT * 2,
+	velocity: 12,
 }
 
 const ball = {
@@ -117,8 +118,21 @@ const arkanoid = {
 	}
 
 	const ballMove = () => {
-		ball.cy -= 2
-		ball.cx -= 1
+		if (ball.cy - ball.radius - CORRECT_PX >= 0) {
+			ball.cx -= 1
+			ball.cy -= 2
+			return
+		}
+
+		if (ball.cy - ball.radius - CORRECT_PX <= 0) {
+			ball.cy += 2
+			ball.cx -= 1
+			return
+		}
+
+		if (ball.cy >= frontCanvas.height) {
+			ball.cy -= 2
+		}
 	}
 	
 	window.addEventListener('resize', () => {
@@ -137,14 +151,14 @@ const arkanoid = {
 		if (KEYBORD_KEYS[0].includes(e.code)) {
 			if (platform.cx - CORRECT_PX <= 0) return
 
-			platform.cx -= 6
+			platform.cx -= platform.velocity
 			return
 		}
 
 		if (KEYBORD_KEYS[1].includes(e.code)) {
 			if (platform.cx + CORRECT_PX >= frontCanvas.width - platform.x) return
 
-			platform.cx += 6
+			platform.cx += platform.velocity
 			return
 		}
 

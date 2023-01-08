@@ -6,5 +6,5 @@ export const NUMBER_BLOCKS = 15
 export const BLOCK_WIDTH = innerWidth / 7
 export const BLOCK_HEIGHT = 48
 export const DISTANCE_BLOCK = 2
-export const CORRECT_PX = 5
+export const CORRECT_PX = 2
 export const KEYBORD_KEYS = [['ArrowLeft', 'KeyA'], ['ArrowRight', 'KeyD'], ['Space']]
