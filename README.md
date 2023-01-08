@@ -19,6 +19,8 @@ And go to `http://localhost:8080/`
 
 ## Controls
 
-`Space` - start/pause game;\
+`Space` - start / pause game;\
 `a`, `<-` - platform movement to the left;\
 `d`, `->` - platform movement to the right;
+
+## Game process
