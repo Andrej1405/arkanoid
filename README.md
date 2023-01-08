@@ -1,6 +1,6 @@
 # Arkanoid
 
-The basic implementation of the `Arkanoid` game.
+The basic implementation of the `Arkanoid` game.\n
 All shapes are drawn using standard canvas methods. The project is under development.
 
 Run the command to build the project:
@@ -19,6 +19,6 @@ And go to `http://localhost:8080/`
 
 ## Controls
 
-`Space` - start/pause game;
+`Space` - start/pause game;\n
 `a`, `<-` - platform movement to the left;
-`d`, `->` - platform movement to the right 
+`d`, `->` - platform movement to the right; 
