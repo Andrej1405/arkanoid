@@ -1,19 +1,22 @@
 import {createCanvas, drawStar} from "./helpers"
-
-const NUMBER_STARS_CANVAS = 100
-const PLATFORM_WIDTH = 200
-const PLATFORM_HEIGHT = 24
-const BALL_RADIUS = 18
-const BLOCK_WIDTH = innerWidth / 8
-const BLOCK_HEIGHT = 48
-const KEYBORD_KEYS = [['ArrowLeft', 'KeyA'], ['ArrowRight', 'KeyD'], ['Space']]
+import {
+	PLATFORM_WIDTH,
+	PLATFORM_HEIGHT,
+	BALL_RADIUS,
+	NUMBER_BLOCKS,
+	BLOCK_HEIGHT,
+	BLOCK_WIDTH,
+	DISTANCE_BLOCK,
+	NUMBER_STARS_CANVAS,
+	KEYBORD_KEYS,
+	CORRECT_PX,
+} from './types'
 
 const platform = {
 	x: PLATFORM_WIDTH,
 	y: PLATFORM_HEIGHT,
 	cx: innerWidth / 2 - PLATFORM_WIDTH / 2,
 	cy: innerHeight - PLATFORM_HEIGHT * 2,
-	color: '#A69200',
 }
 
 const ball = {
@@ -21,30 +24,46 @@ const ball = {
 	radius: BALL_RADIUS,
 	cx: platform.cx + platform.x / 2 - BALL_RADIUS / 2 + BALL_RADIUS / 2,
 	cy: platform.cy - BALL_RADIUS - 3,
-	color: '#A65800',
 }
 
-const rows = {
-	0: 1,
-	1: 1,
-	2: 1,
-	3: 1,
-	4: 2,
-	5: 2,
-	6: 2,
-	7: 3,
-	8: 3,
-	9: 4,
+// FIXME Fix calculation of the location of the columns of blocks 
+const coordinations = {
+	0: {row: 1, col: 1},
+	1: {row: 1, col: 2},
+	2: {row: 1, col: 3},
+	3: {row: 1, col: 4},
+	4: {row: 1, col: 5},
+	5: {row: 2, col: 1.5},
+	6: {row: 2, col: 2.5},
+	7: {row: 2, col: 3.5},
+	8: {row: 2, col: 4.5},
+	9: {row: 3, col: 2},
+	10: {row: 3, col: 3},
+	11: {row: 3, col: 4},
+	12: {row: 4, col: 2.5},
+	13: {row: 4, col: 3.5},
+	14: {row: 5, col: 3},
 }
-const blocks = new Array(10).fill({}).map((_, i) => {
-	const row = rows[i]
 
+const colors = {
+	backCanvas: '#020C4A',
+	platform: '#A69200',
+	ball: '#A65800',
+	block: '#6B4CA4',
+}
+
+const blocks = new Array(NUMBER_BLOCKS).fill({}).map((_, i) => {
+	const coordination = coordinations[i]
+
+	const cy = BLOCK_HEIGHT * coordination.row
+	const cx = BLOCK_WIDTH * coordination.col
+	
 	return {
-		x: BLOCK_WIDTH - 2,
-		y: BLOCK_HEIGHT - 2,
-		cx: BLOCK_WIDTH * (i + 2),
-		cy: BLOCK_HEIGHT * row,
-		color: '#6B4CA4',
+		x: BLOCK_WIDTH - DISTANCE_BLOCK,
+		y: BLOCK_HEIGHT - DISTANCE_BLOCK,
+		cx,
+		cy,
+		color: colors.block,
 	}
 })
 
@@ -57,7 +76,7 @@ const blocks = new Array(10).fill({}).map((_, i) => {
 
 	// Render backCanvas with background and stars
 	const render = () => {
-		backCanvasCtx.fillStyle = '#020C4A'
+		backCanvasCtx.fillStyle = colors.backCanvas
     backCanvasCtx.fillRect(0, 0, backCanvas.width, backCanvas.height)
 
 		for (let i = 0; i < NUMBER_STARS_CANVAS; i++) {
@@ -78,7 +97,7 @@ const blocks = new Array(10).fill({}).map((_, i) => {
 		frontCanvasCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height)
 
 		// Draw platform
-		frontCanvasCtx.fillStyle = platform.color
+		frontCanvasCtx.fillStyle = colors.platform
 		frontCanvasCtx.fillRect(platform.cx, platform.cy, platform.x, platform.y)
 		
 		// Draw blocks
@@ -88,7 +107,7 @@ const blocks = new Array(10).fill({}).map((_, i) => {
 		})
 
 		// Draw ball
-		frontCanvasCtx.fillStyle = ball.color
+		frontCanvasCtx.fillStyle = colors.ball
 		frontCanvasCtx.beginPath()
 		frontCanvasCtx.arc(ball.cx, ball.cy, ball.radius, 0, 2 * Math.PI)
 		frontCanvasCtx.closePath()
@@ -110,18 +129,17 @@ const blocks = new Array(10).fill({}).map((_, i) => {
 	})
 
 	window.addEventListener('keydown', e => {
-		console.log(blocks)
 		if (!KEYBORD_KEYS.flat(1).includes(e.code)) return
 
 		if (KEYBORD_KEYS[0].includes(e.code)) {
-			if (platform.cx <= 0) return
+			if (platform.cx - CORRECT_PX <= 0) return
 
 			platform.cx -= 6
 			return
 		}
 
 		if (KEYBORD_KEYS[1].includes(e.code)) {
-			if (platform.cx >= frontCanvas.width - platform.x) return
+			if (platform.cx + CORRECT_PX >= frontCanvas.width - platform.x) return
 
 			platform.cx += 6
 			return
