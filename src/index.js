@@ -1,65 +1,18 @@
 import {createCanvas, drawStar} from "./helpers"
+import {platform, blocks} from "./modules"
 import {
-	PLATFORM_WIDTH,
-	PLATFORM_HEIGHT,
 	BALL_RADIUS,
-	NUMBER_BLOCKS,
-	BLOCK_HEIGHT,
-	BLOCK_WIDTH,
-	DISTANCE_BLOCK,
 	NUMBER_STARS_CANVAS,
 	KEYBORD_KEYS,
 	CORRECT_PX,
 	colors,
 } from './types'
 
-const platform = {
-	x: PLATFORM_WIDTH,
-	y: PLATFORM_HEIGHT,
-	cx: innerWidth / 2 - PLATFORM_WIDTH / 2,
-	cy: innerHeight - PLATFORM_HEIGHT * 2,
-	velocity: 12,
-}
-
 const ball = {
 	radius: BALL_RADIUS,
 	cx: platform.cx + platform.x / 2 - BALL_RADIUS / 2 + BALL_RADIUS / 2,
-	cy: platform.cy - BALL_RADIUS - 3,
+	cy: platform.cy - BALL_RADIUS - CORRECT_PX,
 }
-
-// FIXME Fix calculation of the location of the columns of blocks 
-const coordinations = {
-	0: {row: 1, col: 1},
-	1: {row: 1, col: 2},
-	2: {row: 1, col: 3},
-	3: {row: 1, col: 4},
-	4: {row: 1, col: 5},
-	5: {row: 2, col: 1.5},
-	6: {row: 2, col: 2.5},
-	7: {row: 2, col: 3.5},
-	8: {row: 2, col: 4.5},
-	9: {row: 3, col: 2},
-	10: {row: 3, col: 3},
-	11: {row: 3, col: 4},
-	12: {row: 4, col: 2.5},
-	13: {row: 4, col: 3.5},
-	14: {row: 5, col: 3},
-}
-
-const blocks = new Array(NUMBER_BLOCKS).fill({}).map((_, i) => {
-	const coordination = coordinations[i]
-
-	const cy = BLOCK_HEIGHT * coordination.row
-	const cx = BLOCK_WIDTH * coordination.col
-	
-	return {
-		x: BLOCK_WIDTH - DISTANCE_BLOCK,
-		y: BLOCK_HEIGHT - DISTANCE_BLOCK,
-		cx,
-		cy,
-		color: colors.block,
-	}
-})
 
 const arkanoid = {
 	isStart: false,
@@ -103,7 +56,7 @@ const arkanoid = {
 		
 		// Draw blocks
 		blocks.forEach(block => {
-			frontCanvasCtx.fillStyle = block.color
+			frontCanvasCtx.fillStyle = colors.block
 			frontCanvasCtx.fillRect(block.cx, block.cy, block.x, block.y)
 		})
 
