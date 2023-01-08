@@ -113,7 +113,7 @@ const arkanoid = {
 		frontCanvasCtx.closePath()
 		frontCanvasCtx.fill()
 		
-		if (arkanoid.isStart) ballMove
+		if (arkanoid.isStart) ballMove()
 	}
 
 	const ballMove = () => {
