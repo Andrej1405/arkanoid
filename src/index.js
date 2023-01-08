@@ -12,6 +12,24 @@ const ball = {
 	radius: BALL_RADIUS,
 	cx: platform.cx + platform.x / 2 - BALL_RADIUS / 2 + BALL_RADIUS / 2,
 	cy: platform.cy - BALL_RADIUS - CORRECT_PX,
+	
+	move() {
+		if (this.cy - this.radius - CORRECT_PX >= 0) {
+			this.cx -= 1
+			this.cy -= 2
+			return
+		}
+
+		if (this.cy - this.radius - CORRECT_PX <= 0) {
+			this.cy += 2
+			this.cx -= 1
+			return
+		}
+
+		if (this.cy >= frontCanvas.height) {
+			this.cy -= 2
+		}
+	},
 }
 
 const arkanoid = {
@@ -67,27 +85,9 @@ const arkanoid = {
 		frontCanvasCtx.closePath()
 		frontCanvasCtx.fill()
 		
-		if (arkanoid.isStart) ballMove()
+		if (arkanoid.isStart) ball.move()
 	}
 
-	const ballMove = () => {
-		if (ball.cy - ball.radius - CORRECT_PX >= 0) {
-			ball.cx -= 1
-			ball.cy -= 2
-			return
-		}
-
-		if (ball.cy - ball.radius - CORRECT_PX <= 0) {
-			ball.cy += 2
-			ball.cx -= 1
-			return
-		}
-
-		if (ball.cy >= frontCanvas.height) {
-			ball.cy -= 2
-		}
-	}
-	
 	window.addEventListener('resize', () => {
 		backCanvas.setAttribute('width', innerWidth)
 		backCanvas.setAttribute('height', innerHeight)
@@ -100,21 +100,8 @@ const arkanoid = {
 
 	window.addEventListener('keydown', e => {
 		if (!KEYBORD_KEYS.flat(1).includes(e.code)) return
-
-		if (KEYBORD_KEYS[0].includes(e.code)) {
-			if (platform.cx - CORRECT_PX <= 0) return
-
-			platform.cx -= platform.velocity
-			return
-		}
-
-		if (KEYBORD_KEYS[1].includes(e.code)) {
-			if (platform.cx + CORRECT_PX >= frontCanvas.width - platform.x) return
-
-			platform.cx += platform.velocity
-			return
-		}
-
+		if (KEYBORD_KEYS[0].includes(e.code)) platform.moveLeft()
+		if (KEYBORD_KEYS[1].includes(e.code)) platform.moveRight()
 		if (KEYBORD_KEYS[2].includes(e.code)) arkanoid.isStart = !arkanoid.isStart
 	})
 
