@@ -10,6 +10,7 @@ import {
 	NUMBER_STARS_CANVAS,
 	KEYBORD_KEYS,
 	CORRECT_PX,
+	colors,
 } from './types'
 
 const platform = {
@@ -20,7 +21,6 @@ const platform = {
 }
 
 const ball = {
-	isMovement: false,
 	radius: BALL_RADIUS,
 	cx: platform.cx + platform.x / 2 - BALL_RADIUS / 2 + BALL_RADIUS / 2,
 	cy: platform.cy - BALL_RADIUS - 3,
@@ -45,13 +45,6 @@ const coordinations = {
 	14: {row: 5, col: 3},
 }
 
-const colors = {
-	backCanvas: '#020C4A',
-	platform: '#A69200',
-	ball: '#A65800',
-	block: '#6B4CA4',
-}
-
 const blocks = new Array(NUMBER_BLOCKS).fill({}).map((_, i) => {
 	const coordination = coordinations[i]
 
@@ -66,6 +59,13 @@ const blocks = new Array(NUMBER_BLOCKS).fill({}).map((_, i) => {
 		color: colors.block,
 	}
 })
+
+const arkanoid = {
+	isStart: false,
+	platform,
+	ball,
+	blocks,
+}
 
 ;(function main() {
 	const backCanvas = createCanvas('backCanvas', 'position: absolute; top: 0; left: 0')
@@ -113,8 +113,9 @@ const blocks = new Array(NUMBER_BLOCKS).fill({}).map((_, i) => {
 		frontCanvasCtx.closePath()
 		frontCanvasCtx.fill()
 		
-		if (ball.isMovement) {
+		if (arkanoid.isStart) {
 			ball.cy -= 2;
+			ball.cx -= 1;
 		}
 	}
 	
@@ -145,7 +146,7 @@ const blocks = new Array(NUMBER_BLOCKS).fill({}).map((_, i) => {
 			return
 		}
 
-		if (KEYBORD_KEYS[2].includes(e.code)) ball.isMovement = !ball.isMovement
+		if (KEYBORD_KEYS[2].includes(e.code)) arkanoid.isStart = !arkanoid.isStart
 	})
 
 	requestAnimationFrame(render)
