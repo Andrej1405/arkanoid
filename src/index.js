@@ -1,6 +1,6 @@
 import {createCanvas, drawStar} from "./helpers"
 import {createPlatform, createBlocks, createBall} from "./modules"
-import {NUMBER_STARS_CANVAS, KEYBORD_KEYS, CORRECT_PX, colors} from './types'
+import {NUMBER_STARS_CANVAS, KEYBORD_KEYS, colors} from './types'
 
 const platform = createPlatform()
 const blocks = createBlocks()

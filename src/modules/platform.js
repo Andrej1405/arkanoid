@@ -11,15 +11,11 @@ export const createPlatform = () => {
 		moveLeft() {
 			if (this.cx - CORRECT_PX <= 0) return
 			this.cx -= this.velocity
-		
-			return
 		},
 
 		moveRight() {
 			if (this.cx + CORRECT_PX >= frontCanvas.width - this.x) return
 			this.cx += this.velocity
-
-			return
 		},
 	}
 }
