@@ -7,3 +7,10 @@ Run the command to build the project:
 ```
 npm run build
 ```
+
+Run to start server:
+```
+npm run start
+```
+
+And go to `http://localhost:8080/`
