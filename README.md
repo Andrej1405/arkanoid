@@ -21,4 +21,4 @@ And go to `http://localhost:8080/`
 
 `Space` - start/pause game;\
 `a`, `<-` - platform movement to the left;\
-`d`, `->` - platform movement to the right;\
+`d`, `->` - platform movement to the right;
