@@ -19,16 +19,18 @@ const coordinations = {
 	14: {row: 5, col: 3},
 }
 
-export const blocks = new Array(NUMBER_BLOCKS).fill({}).map((_, i) => {
-	const coordination = coordinations[i]
-
-	const cx = BLOCK_WIDTH * coordination.col
-	const cy = BLOCK_HEIGHT * coordination.row
+export const createBlocks = () => {
+	return new Array(NUMBER_BLOCKS).fill({}).map((_, i) => {
+		const coordination = coordinations[i]
 	
-	return {
-		x: BLOCK_WIDTH - DISTANCE_BLOCK,
-		y: BLOCK_HEIGHT - DISTANCE_BLOCK,
-		cx,
-		cy,
-	}
-})
+		const cx = BLOCK_WIDTH * coordination.col
+		const cy = BLOCK_HEIGHT * coordination.row
+		
+		return {
+			x: BLOCK_WIDTH - DISTANCE_BLOCK,
+			y: BLOCK_HEIGHT - DISTANCE_BLOCK,
+			cx,
+			cy,
+		}
+	})
+}

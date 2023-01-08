@@ -1,36 +1,10 @@
 import {createCanvas, drawStar} from "./helpers"
-import {platform, blocks} from "./modules"
-import {
-	BALL_RADIUS,
-	NUMBER_STARS_CANVAS,
-	KEYBORD_KEYS,
-	CORRECT_PX,
-	colors,
-} from './types'
+import {createPlatform, createBlocks, createBall} from "./modules"
+import {NUMBER_STARS_CANVAS, KEYBORD_KEYS, CORRECT_PX, colors} from './types'
 
-const ball = {
-	radius: BALL_RADIUS,
-	cx: platform.cx + platform.x / 2 - BALL_RADIUS / 2 + BALL_RADIUS / 2,
-	cy: platform.cy - BALL_RADIUS - CORRECT_PX,
-	
-	move() {
-		if (this.cy - this.radius - CORRECT_PX >= 0) {
-			this.cx -= 1
-			this.cy -= 2
-			return
-		}
-
-		if (this.cy - this.radius - CORRECT_PX <= 0) {
-			this.cy += 2
-			this.cx -= 1
-			return
-		}
-
-		if (this.cy >= frontCanvas.height) {
-			this.cy -= 2
-		}
-	},
-}
+const platform = createPlatform()
+const blocks = createBlocks()
+const ball = createBall(platform)
 
 const arkanoid = {
 	isStart: false,
