@@ -7,6 +7,7 @@
     "dev": "webpack build --mode development",
     "build": "webpack build --mode production",
     "watch": "webpack --watch --mode development",
+    "format": "prettier --write src/**/*.js",
     "start": "nodemon server.js"
   },
   "keywords": [],
@@ -15,6 +16,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "nodemon": "^2.0.20",
+    "prettier": "^2.8.2",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-middleware": "^6.0.1"
