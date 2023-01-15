@@ -6,7 +6,7 @@ export const createPlatform = () => {
     y: PLATFORM_HEIGHT,
     cx: innerWidth / 2 - PLATFORM_WIDTH / 2,
     cy: innerHeight - PLATFORM_HEIGHT * 2,
-    velocity: 12,
+    velocity: 20,
 
     moveLeft() {
       if (this.cx - CORRECT_PX <= 0) return

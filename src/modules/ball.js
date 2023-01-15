@@ -8,16 +8,13 @@ export const createBall = platform => {
     velocity: 6,
 
     move({platform, blocks}) {
-      let isCollide = false
-
       this.y -= this.velocity
 
       for (const block of blocks) {
-        isCollide = this.collide(block)
-        
-        if (isCollide) {
+        if (this.collide(block)) {
           block.destroy()
           this.velocity = -6
+          return
         }
       }
     },
