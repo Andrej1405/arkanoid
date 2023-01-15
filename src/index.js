@@ -42,24 +42,26 @@ const arkanoid = {
 
     frontCanvasCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height)
 
-    // Draw platform
-    frontCanvasCtx.fillStyle = colors.platform
-    frontCanvasCtx.fillRect(platform.cx, platform.cy, platform.x, platform.y)
-
     // Draw blocks
     blocks.forEach(block => {
-      frontCanvasCtx.fillStyle = colors.block
-      frontCanvasCtx.fillRect(block.cx, block.cy, block.x, block.y)
+      if (!block.isDestroy) {
+        frontCanvasCtx.fillStyle = colors.block
+        frontCanvasCtx.fillRect(block.cx, block.cy, block.x, block.y)
+      }
     })
 
     // Draw ball
     frontCanvasCtx.fillStyle = colors.ball
     frontCanvasCtx.beginPath()
-    frontCanvasCtx.arc(ball.cx, ball.cy, ball.radius, 0, 2 * Math.PI)
+    frontCanvasCtx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI)
     frontCanvasCtx.closePath()
     frontCanvasCtx.fill()
 
-    if (arkanoid.isStart) ball.move()
+    // Draw platform
+    frontCanvasCtx.fillStyle = colors.platform
+    frontCanvasCtx.fillRect(platform.cx, platform.cy, platform.x, platform.y)
+
+    if (arkanoid.isStart) ball.move({platform: arkanoid.platform, blocks: arkanoid.blocks})
   }
 
   window.addEventListener('resize', () => {
@@ -79,5 +81,5 @@ const arkanoid = {
     if (KEYBORD_KEYS[2].includes(e.code)) arkanoid.isStart = !arkanoid.isStart
   })
 
-  requestAnimationFrame(render)
+  render()
 })()

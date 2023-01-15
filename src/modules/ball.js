@@ -2,26 +2,44 @@ import {BALL_RADIUS, CORRECT_PX} from '../types/index'
 
 export const createBall = platform => {
   return {
+    x: platform.cx + platform.x / 2 - BALL_RADIUS / 2 + BALL_RADIUS / 2,
+    y: platform.cy - BALL_RADIUS - CORRECT_PX,
     radius: BALL_RADIUS,
-    cx: platform.cx + platform.x / 2 - BALL_RADIUS / 2 + BALL_RADIUS / 2,
-    cy: platform.cy - BALL_RADIUS - CORRECT_PX,
+    velocity: 1,
 
-    move() {
-      if (this.cy - this.radius - CORRECT_PX >= 0) {
-        this.cx -= 1
-        this.cy -= 2
-        return
+    move({platform, blocks}) {
+      let isCollide = false
+
+      this.y -= this.velocity
+
+      for (const block of blocks) {
+        isCollide = this.collide(block)
+        
+        if (isCollide) {
+          block.destroy()
+          this.velocity = -1
+        }
+      }
+    },
+
+    collide(element) {
+      let isCollide = false
+
+      const x = this.x - this.radius
+      const y = this.y - this.radius
+
+      if (
+          x * 2 > element.x &&
+          x < element.x + element.cx &&
+          y * 2 > element.y &&
+          y < element.y + element.cy
+        ) {
+
+        isCollide = true
+        return isCollide
       }
 
-      if (this.cy - this.radius - CORRECT_PX <= 0) {
-        this.cy += 2
-        this.cx -= 1
-        return
-      }
-
-      if (this.cy >= frontCanvas.height) {
-        this.cy -= 2
-      }
+      return isCollide
     },
   }
 }

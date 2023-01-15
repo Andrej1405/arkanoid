@@ -31,6 +31,11 @@ export const createBlocks = () => {
       y: BLOCK_HEIGHT - DISTANCE_BLOCK,
       cx,
       cy,
+      isDestroy: false,
+
+      destroy() {
+        this.isDestroy = true
+      }
     }
   })
 }
