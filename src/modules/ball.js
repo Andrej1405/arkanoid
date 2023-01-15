@@ -25,13 +25,7 @@ export const createBall = platform => {
       const x = this.x - this.radius
       const y = this.y - this.radius
 
-      if (
-          x * 2 > element.x &&
-          x < element.x + element.cx &&
-          y * 2 > element.y &&
-          y < element.y + element.cy
-        ) {
-
+      if (x * 2 > element.x && x < element.x + element.cx && y * 2 > element.y && y < element.y + element.cy) {
         isCollide = true
         return isCollide
       }

@@ -1,6 +1,6 @@
 import {createCanvas, drawStar} from './helpers'
 import {createPlatform, createBlocks, createBall} from './modules'
-import {NUMBER_STARS_CANVAS, KEYBORD_KEYS, colors} from './types'
+import {NUMBER_STARS_CANVAS, KEYBORD_KEYS, colors, GAME_STATE} from './types'
 
 const platform = createPlatform()
 const blocks = createBlocks()
@@ -11,6 +11,7 @@ const arkanoid = {
   platform,
   ball,
   blocks,
+  state: GAME_STATE.NOT_STARTED,
 }
 
 ;(function main() {
@@ -41,6 +42,10 @@ const arkanoid = {
     requestAnimationFrame(game)
 
     frontCanvasCtx.clearRect(0, 0, frontCanvas.width, frontCanvas.height)
+
+    frontCanvasCtx.fillStyle = colors.text
+    frontCanvasCtx.font = '14px sans-serif'
+    frontCanvasCtx.fillText(`Game ${arkanoid.state}`, 20, 20)
 
     // Draw blocks
     blocks.forEach(block => {
@@ -78,7 +83,11 @@ const arkanoid = {
     if (!KEYBORD_KEYS.flat(1).includes(e.code)) return
     if (KEYBORD_KEYS[0].includes(e.code)) platform.moveLeft()
     if (KEYBORD_KEYS[1].includes(e.code)) platform.moveRight()
-    if (KEYBORD_KEYS[2].includes(e.code)) arkanoid.isStart = !arkanoid.isStart
+
+    if (KEYBORD_KEYS[2].includes(e.code)) {
+      arkanoid.isStart = !arkanoid.isStart
+      arkanoid.state = GAME_STATE.START
+    }
   })
 
   render()

@@ -35,7 +35,7 @@ export const createBlocks = () => {
 
       destroy() {
         this.isDestroy = true
-      }
+      },
     }
   })
 }
