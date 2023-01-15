@@ -23,4 +23,4 @@ And go to `http://localhost:8080/`
 `a`, `<-` - platform movement to the left;\
 `d`, `->` - platform movement to the right;
 
-## Game process
+## Demo
