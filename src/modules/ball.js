@@ -5,7 +5,7 @@ export const createBall = platform => {
     x: platform.cx + platform.x / 2 - BALL_RADIUS / 2 + BALL_RADIUS / 2,
     y: platform.cy - BALL_RADIUS - CORRECT_PX,
     radius: BALL_RADIUS,
-    velocity: 1,
+    velocity: 6,
 
     move({platform, blocks}) {
       let isCollide = false
@@ -17,7 +17,7 @@ export const createBall = platform => {
         
         if (isCollide) {
           block.destroy()
-          this.velocity = -1
+          this.velocity = -6
         }
       }
     },
