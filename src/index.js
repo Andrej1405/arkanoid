@@ -15,7 +15,7 @@ const arkanoid = {
 }
 
 ;(function main() {
-  const backCanvas = createCanvas('backCanvas', 'position: absolute; top: 0; left: 0')
+  const backCanvas = createCanvas("backCanvas", 'position: absolute; top: 0; left: 0')
   const backCanvasCtx = backCanvas.getContext('2d')
 
   const frontCanvas = createCanvas('frontCanvas', 'position: relative')
