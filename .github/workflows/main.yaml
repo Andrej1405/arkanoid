@@ -1,13 +1,13 @@
-name: Main
+name: Check lint
 on: push
 
 jobs: 
-  run_format:
+  check_lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Install dependencies
         run: npm i
-      - name: format
-        run: npm run format
+      - name: Validate linter rules
+        run: npm run lint
 
