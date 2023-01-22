@@ -1,8 +1,8 @@
-name: Run lint
+name: Check lint
 on: push
 
 jobs: 
-  run_format:
+  check_lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
