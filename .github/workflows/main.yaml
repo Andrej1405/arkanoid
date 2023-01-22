@@ -1,7 +1,7 @@
 name: Check lint
 on: push
 
-jobs: 
+jobs:
   check_lint:
     runs-on: ubuntu-latest
     steps:
@@ -10,4 +10,3 @@ jobs:
         run: npm i
       - name: Validate linter rules
         run: npm run lint
-

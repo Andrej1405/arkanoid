@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack build --mode production",
     "watch": "webpack --watch --mode development",
-    "format": "prettier --write src/**/*.js",
+    "format": "prettier --write ./",
     "lint": "eslint -- ./",
     "start": "nodemon server.js",
     "dev": "concurrently \"npm run watch\" \"npm run start\""
