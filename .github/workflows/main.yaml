@@ -1,0 +1,10 @@
+name: Main
+on: push
+
+jobs: 
+  run_format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: format
+        run: npm run format
+
