@@ -6,7 +6,7 @@ const platform = createPlatform()
 const blocks = createBlocks()
 const ball = createBall(platform)
 
-const arkanoid = {
+  const arkanoid = {
   isStart: false,
   platform,
   ball,
