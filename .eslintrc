@@ -4,7 +4,8 @@
     "es2021": true
   },
 
-  "extends": ["prettier"],
+  "plugins": ["prettier"],
+  "extends": ["plugin:prettier/recommended", "prettier"],
 
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -14,6 +15,15 @@
   "rules": {
     "quotes": ["error", "single"],
 
-    "semi": ["error", "never"]
-  }
+    "semi": ["error", "never"],
+
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  },
+
+  "ignorePatterns": ["dist/**/*.js"]
 }
